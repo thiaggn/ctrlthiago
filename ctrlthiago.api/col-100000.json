@@ -1,0 +1,49 @@
+{
+  "id": 100000,
+  "visibility": 9,
+  "title": "Rust",
+  "views": 2,
+  "comments": 3,
+  "posts": [
+    {
+      "id": 203030,
+      "visibility": 3,
+      "title": "Introdução à linguagem",
+      "views": 1,
+      "comments": 2,
+      "submittedAt": 1714521600000
+    },
+    {
+      "id": 203031,
+      "visibility": 9,
+      "title": "Conceitos de ownership",
+      "views": 4,
+      "comments": 0,
+      "submittedAt": 1714608000000
+    },
+    {
+      "id": 203032,
+      "visibility": 9,
+      "title": "Borrowing e lifetimes",
+      "views": 8,
+      "comments": 1,
+      "submittedAt": 1714694400000
+    },
+    {
+      "id": 203033,
+      "visibility": 3,
+      "title": "Match e enums na prática",
+      "views": 2,
+      "comments": 1,
+      "submittedAt": 1714780800000
+    },
+    {
+      "id": 203034,
+      "visibility": 9,
+      "title": "Gerenciamento de memória sem GC",
+      "views": 5,
+      "comments": 3,
+      "submittedAt": 1714867200000
+    }
+  ]
+}

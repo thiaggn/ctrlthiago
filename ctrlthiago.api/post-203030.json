@@ -1,0 +1,449 @@
+{
+  "relatedCollections": [
+    {
+      "id": 100000,
+      "visibility": 9,
+      "title": "Rust"
+    }
+  ],
+  "post": {
+    "id": 203030,
+    "collectionId": 100000,
+    "visibility": 3,
+    "title": "Introdução à linguagem",
+    "views": 1,
+    "comments": 2,
+    "submittedAt": 1714521600000
+  },
+  "blocks": [
+    {
+      "id": 1,
+      "type": "t",
+      "size": 1,
+      "words": [
+        {
+          "type": "w",
+          "styles": [],
+          "text": "Por que aprender Rust?"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "p",
+      "words": [
+        {
+          "type": "w",
+          "styles": [],
+          "text": "Rust é uma linguagem de programação moderna que ganhou destaque por oferecer "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "b"
+          ],
+          "text": "alta performance"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": " comparável a C e C++, mas com uma ênfase muito maior em "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "b",
+            "i"
+          ],
+          "text": "segurança de memória"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": ". Enquanto linguagens tradicionais permitem bugs perigosos como "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "b"
+          ],
+          "text": "acessos inválidos à memória"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": ", Rust evita esses problemas graças ao seu sistema de posse e verificação em tempo de compilação. Isso torna a linguagem extremamente atrativa para aplicações críticas como navegadores, sistemas operacionais, e softwares embarcados, onde a confiabilidade e a velocidade são essenciais."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "p",
+      "words": [
+        {
+          "type": "w",
+          "text": "Além disso, a linguagem oferece uma experiência moderna ao programador, com ferramentas integradas como o compilador"
+        },
+        {
+          "type": "w",
+          "styles": [
+            "c"
+          ],
+          "text": "rustc"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": " e o gerenciador de pacotes "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "c"
+          ],
+          "text": "cargo"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": ". Isso torna o processo de desenvolvimento mais fluido, eliminando grande parte da complexidade envolvida em linguagens de baixo nível. Para quem busca escrever software eficiente sem abrir mão da "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "b"
+          ],
+          "text": "segurança"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": " e da "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "i"
+          ],
+          "text": "clareza"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": ", Rust representa uma das melhores escolhas disponíveis atualmente."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "type": "t",
+      "size": 2,
+      "words": [
+        {
+          "type": "w",
+          "styles": [],
+          "text": "Conceitos fundamentais"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "p",
+      "words": [
+        {
+          "type": "w",
+          "styles": [],
+          "text": "O coração do Rust está em seus conceitos inovadores como "
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "to": "https://www.rust-lang.org/",
+          "text": "ownership"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": ", "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "c"
+          ],
+          "text": "borrowing"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": " e "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "c"
+          ],
+          "text": "lifetimes"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": ". Esses mecanismos garantem que o programador controle precisamente o tempo de vida das variáveis e a posse dos dados, evitando problemas como "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "b"
+          ],
+          "text": "uso após liberação de memória"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": " e "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "b",
+            "i"
+          ],
+          "text": "concorrência insegura"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": ". Embora desafiadores no início, esses conceitos são poderosos e tornam o código mais robusto, confiável e fácil de manter."
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "type": "p",
+      "words": [
+        {
+          "type": "w",
+          "styles": [],
+          "text": "Outro ponto forte de Rust é seu sistema de tipos "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "i"
+          ],
+          "text": "extremamente expressivo"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": ", que permite criar abstrações seguras sem perda de performance. Recursos como "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "c"
+          ],
+          "text": "match"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": ", "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "c"
+          ],
+          "text": "enum"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": " e "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "c"
+          ],
+          "text": "trait"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": " proporcionam controle preciso sobre o fluxo e comportamento do programa. Essa combinação de "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "b"
+          ],
+          "text": "segurança"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": ", "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "i"
+          ],
+          "text": "flexibilidade"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": " e "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "b",
+            "i"
+          ],
+          "text": "eficiência"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": " tem feito com que Rust seja cada vez mais adotado em projetos de larga escala."
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "type": "t",
+      "size": 3,
+      "words": [
+        {
+          "type": "w",
+          "styles": [],
+          "text": "Ferramentas e comunidade"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "type": "p",
+      "words": [
+        {
+          "type": "w",
+          "styles": [],
+          "text": "Rust oferece uma experiência de desenvolvimento muito agradável graças ao seu conjunto de ferramentas. O "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "c"
+          ],
+          "text": "cargo"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": " gerencia dependências, testes, builds e empacotamento de forma integrada, eliminando boa parte da burocracia comum em outras linguagens. Além disso, a ferramenta "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "c"
+          ],
+          "text": "clippy"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": " ajuda a manter o estilo e a qualidade do código, e o "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "c"
+          ],
+          "text": "rustfmt"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": " garante formatação consistente. Todas essas ferramentas são mantidas oficialmente, o que assegura uma experiência "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "i",
+            "b"
+          ],
+          "text": "coesa e produtiva"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": "."
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "type": "p",
+      "words": [
+        {
+          "type": "w",
+          "styles": [],
+          "text": "A comunidade Rust é outro grande diferencial. Os desenvolvedores são "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "i",
+            "b"
+          ],
+          "text": "acolhedores e ativos"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": ", sempre dispostos a ajudar iniciantes e promover boas práticas. A documentação oficial é de "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "b"
+          ],
+          "text": "altíssima qualidade"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": ", com exemplos claros, explicações detalhadas e guias atualizados. Além disso, iniciativas como o "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "c"
+          ],
+          "text": "Rust Book"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": " e o "
+        },
+        {
+          "type": "w",
+          "styles": [
+            "c"
+          ],
+          "text": "Rustlings"
+        },
+        {
+          "type": "w",
+          "styles": [],
+          "text": " tornam o aprendizado mais acessível e prático para todos os níveis de experiência."
+        }
+      ]
+    }
+  ]
+}
