@@ -1,20 +1,8 @@
-import {captureSelection} from "$lib/editor/cursor";
-import {handleKeyboardEvent} from "$lib/editor/handler";
 import {nodemap, pathmap} from "$lib/editor/maps";
+import {registerListeners} from "$lib/editor/listener/events.svelte";
 
 export const editorstate = function (element: HTMLElement, param: undefined) {
-    const handlekeydown = async (ev: KeyboardEvent) => {
-        const cursor = captureSelection(pathmap)
-        if (cursor.valid) handleKeyboardEvent(ev, cursor).then()
-    }
-
-    document.addEventListener('keydown', handlekeydown)
-
-    return {
-        destroy: () => {
-            document.removeEventListener('keydown', handlekeydown)
-        }
-    }
+    registerListeners(pathmap)
 }
 
 export const textstate = function (element: HTMLElement, param: { path: number[] }) {

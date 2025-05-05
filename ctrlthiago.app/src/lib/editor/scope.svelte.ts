@@ -1,9 +1,13 @@
 import {model} from "$lib/model";
 
-export class SiblingScope {
-    private readonly siblings: model.Entity[]
+export class SiblingScope<E extends model.Entity = model.Entity> {
+    private readonly siblings: E[]
 
-    constructor(siblings: model.Entity[]) {
+    public underlying(): E[] {
+        return this.siblings
+    }
+
+    constructor(siblings: E[]) {
         this.siblings = siblings
     }
 
@@ -27,7 +31,7 @@ export class SiblingScope {
         return this.siblings.findIndex((ent => ent.id == id))
     }
 
-    public at(index: number): model.Entity {
+    public at(index: number): E {
         return this.siblings[index]
     }
 
@@ -37,12 +41,13 @@ export class SiblingScope {
     }
 }
 
+
 export class Scope<E extends model.Entity = model.Entity> {
-    public siblings: SiblingScope
+    public siblings: SiblingScope<E>
     public entity: E
 
-    constructor(siblings: model.Entity[], entity: E) {
-        this.siblings = new SiblingScope(siblings)
+    constructor(siblings: E[], entity: E) {
+        this.siblings = new SiblingScope<E>(siblings)
         this.entity = entity
     }
 
@@ -54,13 +59,29 @@ export class Scope<E extends model.Entity = model.Entity> {
         return this.entity.path.length
     }
 
-    public leftSibling(): model.Entity | null {
+    public leftSibling(): E | null {
         const index = this.index
-        if (index - 1 >= 0) return this.siblings.at(index - 1)
+        if (index - 1 > 0) return this.siblings.at(index - 1)
         return null
     }
 
-    public rightSibling(): model.Entity | null {
+    public left(): Scope<E> | undefined {
+        const index = this.index
+        if (index > 0) {
+            return new Scope<E>(this.siblings.underlying(), this.siblings.at(index - 1))
+        }
+        return undefined
+    }
+
+    public right(): Scope<E> | undefined {
+        const index = this.index
+        if (index + 1 < this.siblings.length) {
+            return new Scope<E>(this.siblings.underlying(), this.siblings.at(index + 1))
+        }
+        return undefined
+    }
+
+    public rightSibling(): E | null {
         const index = this.index
         if (index + 1 < this.siblings.length) return this.siblings.at(index + 1)
         return null
