@@ -118,6 +118,7 @@ export namespace model {
         type: EntityType.Word
         text: string
         styles: WordStyle[]
+        marked: boolean
         path: number[]
     }
 }

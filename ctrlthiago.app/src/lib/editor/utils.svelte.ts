@@ -1,5 +1,5 @@
 import {model} from "$lib/model";
-import  {Scope} from "$lib/editor/scope.svelte";
+import  {Scoped} from "$lib/editor/scope.svelte";
 
 export function parentOf(path: number[]) {
     return path.slice(0, -1)
@@ -38,12 +38,12 @@ export function mustFind(ent: model.Entity, id: number): model.Entity {
     return target
 }
 
-export function search(path: number[], level: number, parent: model.Entity): Scope {
+export function search(path: number[], level: number, parent: model.Entity): Scoped {
     const siblings = childrenOf(parent)
     const index = findIndex(parent, path[level])
     const element = siblings[index]
 
-    if (level == path.length - 1) return new Scope(siblings, element)
+    if (level == path.length - 1) return new Scoped(siblings, element)
     return search(path, level + 1, element)
 }
 

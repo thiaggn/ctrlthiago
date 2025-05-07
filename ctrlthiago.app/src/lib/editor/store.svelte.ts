@@ -1,5 +1,5 @@
 import {model} from "$lib/model";
-import {Scope} from "$lib/editor/scope.svelte";
+import {Scoped} from "$lib/editor/scope.svelte";
 import {
     areInSequence,
     rootOf,
@@ -33,38 +33,21 @@ class TextStore {
     public setBlocks(blocks: model.Block[]) {
         this.blocks = blocks
     }
-    
-    public eraseWord(word: Scope<model.Word>) {
-        const left = word.left()
-        const right = word.right()
 
-        if (left && right && same(left.entity.styles, right.entity.styles)) {
-            left.entity.text += right.entity.text
-            right.removeItself()
-        }
-
-        word.removeItself()
-    }
-
-    public updateText(word: Scope<model.Word>, value: string): boolean {
-        if (value.length == 0) {
-            this.eraseWord(word)
-            return true
-        }
-        else word.entity.text = value
-        return false
-    }
-
-    public search(path: number[]): Scope {
+    public search(path: number[]): Scoped {
         return search(path, 0, this.page)
     }
 
-    public getWord(path: number[]): Scope<model.Word> {
+    public getWord(path: number[]): Scoped<model.Word> {
         const scope = this.search(path)
         if (!model.isWord(scope.entity)) {
             throw new Error('expected entity to be a word')
         }
-        return scope as Scope<model.Word>
+        return scope as Scoped<model.Word>
+    }
+
+    public getStatelessWord(path: number[]): model.Word{
+        return $state.snapshot(this.getWord(path).entity)
     }
 }
 

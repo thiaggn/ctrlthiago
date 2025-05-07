@@ -11,7 +11,8 @@ function transf_word(t: dto.Word, path: number[] = []): model.Word {
         styles: t.styles ? t.styles : [],
         type: model.EntityType.Word,
         text: t.text,
-        path: [...path, nextId]
+        path: [...path, nextId],
+        marked: false
     }
 }
 

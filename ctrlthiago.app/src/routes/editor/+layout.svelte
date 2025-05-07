@@ -2,6 +2,9 @@
 	import SideBar from "$lib/sidebar/SideBar.svelte";
 	import ContainedScroll from "$lib/components/ContainedScroll.svelte";
 	import TopBar from "$lib/topbar/TopBar.svelte";
+	import {selectionListener} from "$lib/editor/selection.ts";
+
+	selectionListener.start()
 </script>
 
 <div class='editor'>
@@ -23,6 +26,7 @@
 		--color-gray-fog-l1: #383b38;
 		--color-gray-fog-l2: #565b56;
 		--color-gray-fog-l3: #6c726c;
+		--color-gray-fog-l4: #8b9a8b;
 		--color-prim-bright: #95bc74;
 		--color-white: #afb2ac;
 		--color-white-d1: #9aa297;

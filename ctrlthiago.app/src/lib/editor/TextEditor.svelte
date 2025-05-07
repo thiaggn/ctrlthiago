@@ -3,10 +3,9 @@
 	import Title from "$lib/editor/entities/Title.svelte";
 	import Paragraph from "$lib/editor/entities/Paragraph.svelte";
 	import {textStore} from "$lib/editor/store.svelte";
-	import {editorstate} from "$lib/editor/textstate.svelte";
 </script>
 
-<div class='text-editor' contenteditable="plaintext-only" use:editorstate={undefined}>
+<div class='text-editor' contenteditable="plaintext-only">
 	{#each textStore.blocks as block (block.id)}
 		{#if block.type === model.EntityType.Title}
 			<Title title={block}/>
@@ -18,14 +17,11 @@
 
 <style>
 	.text-editor {
-		/*hyphens: auto;*/
-		/*overflow-wrap: break-word;*/
-		/*word-wrap: break-word;*/
-		/*text-align: justify;*/
-
+		text-align: justify;
 		width: 100%;
 		padding: 80px 120px;
 		user-select: text;
+
 		&:focus {
 			outline: none;
 		}

@@ -41,8 +41,7 @@ export class SiblingScope<E extends model.Entity = model.Entity> {
     }
 }
 
-
-export class Scope<E extends model.Entity = model.Entity> {
+export class Scoped<E extends model.Entity = model.Entity> {
     public siblings: SiblingScope<E>
     public entity: E
 
@@ -59,36 +58,30 @@ export class Scope<E extends model.Entity = model.Entity> {
         return this.entity.path.length
     }
 
-    public leftSibling(): E | null {
-        const index = this.index
-        if (index - 1 > 0) return this.siblings.at(index - 1)
-        return null
+    public unwrap(): E {
+        return this.entity
     }
 
-    public left(): Scope<E> | undefined {
+    public left(): Scoped<E> | undefined {
         const index = this.index
         if (index > 0) {
-            return new Scope<E>(this.siblings.underlying(), this.siblings.at(index - 1))
+            return new Scoped<E>(this.siblings.underlying(), this.siblings.at(index - 1))
         }
         return undefined
     }
 
-    public right(): Scope<E> | undefined {
+    public right(): Scoped<E> | undefined {
         const index = this.index
         if (index + 1 < this.siblings.length) {
-            return new Scope<E>(this.siblings.underlying(), this.siblings.at(index + 1))
+            return new Scoped<E>(this.siblings.underlying(), this.siblings.at(index + 1))
         }
         return undefined
-    }
-
-    public rightSibling(): E | null {
-        const index = this.index
-        if (index + 1 < this.siblings.length) return this.siblings.at(index + 1)
-        return null
     }
 
     public removeItself() {
         const index = this.index
         this.siblings.splice(index, index + 1)
+
+
     }
 }

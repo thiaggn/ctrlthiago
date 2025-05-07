@@ -84,6 +84,7 @@
 				border: 1px solid var(--color-gray-fog);
 				border-bottom: none;
 				border-radius: 4px;
+				box-shadow: rgba(0, 0, 0, 0.47) 0 0 50px;
 			}
 		}
 	}

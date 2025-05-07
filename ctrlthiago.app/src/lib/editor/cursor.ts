@@ -1,118 +1,87 @@
-import {nodeFromPath} from "$lib/editor/maps";
+import {stateBinder} from "$lib/editor/binder.svelte";
 
 export class Cursor {
-    valid: boolean = false
+    offset: number
+    node: Node
 
-    path = {start: [0], end: [0]}
-    offset = {start: 0, end: 0}
-    text = {start: "", end: ""}
-    node = {start: document.createTextNode('') as Node, end: document.createTextNode('') as Node}
+    constructor(node: Node, offset: number, text: string) {
+        this.node = node
+        this.offset = offset
+    }
+}
 
-    public startId() {
-        return this.path.start[this.path.start.length-1]
+export class RangeCursor {
+    start: Cursor
+    end: Cursor
+    isCollapsed: boolean
+
+    constructor(begin: Cursor, end: Cursor, isCollapsed: boolean) {
+        this.start = begin
+        this.end = end
+        this.isCollapsed = isCollapsed
     }
 
-    public endId() {
-        return this.path.end[this.path.end.length-1]
+    get offset() {
+        return this.start.offset
     }
+}
 
-    public atStart(): boolean {
-        const bothAreZero = this.offset.start == 0 && this.offset.end == 0
-        return bothAreZero && this.isCollapsed()
-    }
+const defPos: Cursor = {
+    offset: 0,
+    node: document.createTextNode(''),
+}
 
-    public atEnd(): boolean{
-        const length = this.text.start.length
-        const bothAtEnd = this.offset.start == length && this.offset.end == length
-        return bothAtEnd && this.isCollapsed()
-    }
+type OrderedSelection = {
+    initialNode: Node
+    initialOffset: number
+    finalNode: Node
+    finalOffset: number
+}
 
-    // se está colapsado dentro da mesma palavra
-    public isCollapsed(): boolean {
-        const sameoffset = this.offset.start == this.offset.end
-        return sameoffset && this.isContained()
-    }
+const defSnapshot = new RangeCursor(defPos, defPos, true)
 
-    // se é dentro da mesma palavra
-    public isContained(): boolean {
-        if (this.path.start.length != this.path.end.length) return false
-        return this.path.start.every((v, i) => this.path.end[i] == v)
-    }
+export class Tracker {
+    public static now(): RangeCursor {
+        const wsel = window.getSelection()
+        if (wsel == undefined)
+            return defSnapshot
 
-    public revert(off: number = 0) {
-        const sel = window.getSelection()
-        if (sel) {
-            sel.removeAllRanges()
-            const range = document.createRange()
-            range.setStart(this.node.start, this.offset.start + off)
-            range.setEnd(this.node.start, this.offset.start + off)
-            sel.addRange(range)
+        if (wsel.anchorNode == null || wsel.focusNode == null)
+            return defSnapshot
+
+        const sel = this.reorder(
+            wsel.anchorNode, wsel.anchorOffset,
+            wsel.focusNode, wsel.focusOffset
+        )
+
+        const start = {
+            offset: sel.initialOffset,
+            node: sel.initialNode,
+            text: sel.initialNode.textContent ?? ''
         }
+
+        const end = {
+            offset: sel.finalOffset,
+            node: sel.finalNode,
+            text: sel.finalNode.textContent ?? ''
+        }
+
+        return new RangeCursor(start, end, wsel.isCollapsed)
     }
 
-    public replace(path: number[], offset: number): Cursor {
-        const node = nodeFromPath(path)
-        this.valid = true
-        this.path.start = path
-        this.path.end = path
-        this.node.start = node
-        this.node.end = node
-        this.offset.start = offset
-        this.offset.end = offset
+    private static reorder(a: Node, offA: number, b: Node, offB: number): OrderedSelection {
+        const comp = a.compareDocumentPosition(b)
 
-        return this
+        if (a === b) {
+            return offA <= offB
+                ? {initialNode: a, initialOffset: offA, finalNode: b, finalOffset: offB}
+                : {initialNode: b, initialOffset: offB, finalNode: a, finalOffset: offA}
+        }
+
+        if (comp & Node.DOCUMENT_POSITION_FOLLOWING) {
+            return {initialNode: a, initialOffset: offA, finalNode: b, finalOffset: offB}
+        }
+
+        return {initialNode: b, initialOffset: offB, finalNode: a, finalOffset: offA}
     }
-}
-
-export function captureSelection(pathmap: WeakMap<Node, number[]>): Cursor {
-    const cursor = new Cursor()
-
-    const sel = getSelection()
-
-    if (sel == undefined || sel.anchorNode == undefined || sel.focusNode == undefined) {
-        cursor.valid = false
-        return cursor
-    }
-
-    const [startnode, startoff, endnode, endoff] = reorder(
-        sel.anchorNode, sel.anchorOffset,
-        sel.focusNode, sel.focusOffset
-    )
-
-    cursor.node.start = startnode
-    cursor.node.end = endnode
-
-    cursor.text.start = startnode.textContent!
-    cursor.text.end = endnode.textContent!
-
-    const startPath = pathmap.get(startnode)
-    const endPath = pathmap.get(endnode)
-
-    if (startPath == undefined || endPath == undefined) {
-        cursor.valid = false
-        return cursor
-    }
-
-    cursor.path.start = startPath
-    cursor.offset.start = startoff
-    cursor.path.end = endPath
-    cursor.offset.end = endoff
-    cursor.valid = true
-    return cursor
-}
-
-function reorder(a: Node, offA: number, b: Node, offB: number): [Node, number, Node, number] {
-    const comp = a.compareDocumentPosition(b)
-
-    if (a === b) {
-        return offA <= offB
-            ? [a, offA, b, offB]
-            : [b, offB, a, offA]
-    }
-
-    if (comp & Node.DOCUMENT_POSITION_FOLLOWING) {
-        return [a, offA, b, offB]
-    }
-
-    return [b, offB, a, offA]
 }

@@ -17,11 +17,6 @@
 
 <style>
 	.paragraph {
-
-		&:empty {
-			content: "Parágrafo vazio";
-		}
-
 		padding: 10px 0;
 		font-size: 14px;
 		line-height: 20px;
