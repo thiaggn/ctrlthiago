@@ -15,8 +15,12 @@ export class SiblingScope<E extends model.Entity = model.Entity> {
         return this.siblings.length
     }
 
-    public splice(start: number, end: number) {
+    public take(start: number, end: number) {
         this.siblings.splice(start, end - start)
+    }
+
+    public splice(start: number, deleteCount: number, ...items: E[]) {
+        this.siblings.splice(start, deleteCount, ...items)
     }
 
     public trimEnd(beginAt: number) {
@@ -80,8 +84,10 @@ export class Scoped<E extends model.Entity = model.Entity> {
 
     public removeItself() {
         const index = this.index
-        this.siblings.splice(index, index + 1)
+        this.siblings.take(index, index + 1)
+    }
 
-
+    public insertAfter(ent: E) {
+        this.siblings.splice(this.index+1, 0, ent)
     }
 }

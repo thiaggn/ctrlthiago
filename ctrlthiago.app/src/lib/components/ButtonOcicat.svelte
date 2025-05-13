@@ -6,15 +6,16 @@
 		children: Snippet
 		bright?: boolean
 		light?: boolean
+		vibrant?: boolean
+		onClick?: () => void
 	}
 
-
-	const {to, children, bright, light}: Props = $props()
+	const {to, children, bright, light, vibrant, onClick}: Props = $props()
 
 	const tag = to ? 'a' : 'div'
 </script>
 
-<svelte:element this={tag} class='button' class:bright class:light href={to}>
+<svelte:element this={tag} class='button' class:bright class:light class:vibrant href={to} onclick={onClick} role='none'>
 	{@render children()}
 </svelte:element>
 
@@ -42,6 +43,14 @@
 		&.bright {
 			color: var(--color-prim-fog);
 			background: var(--color-prim-bright);
+		}
+
+		&.vibrant {
+			color: var(--color-prim-bright-1);
+
+			&:hover {
+				color: var(--color-prim-bright);
+			}
 		}
 	}
 </style>

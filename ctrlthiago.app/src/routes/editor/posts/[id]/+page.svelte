@@ -6,6 +6,9 @@
 	import IconArrowLeft from "$lib/icons/IconArrowLeft.svelte";
 	import TextEditor from "$lib/editor/TextEditor.svelte";
 	import {model} from "$lib/model";
+	import {editor} from "$lib/editor/store.svelte";
+	import type {dto} from "$lib/dto";
+	import {transform} from "$lib/transform.svelte";
 
 	const p = $props()
 
@@ -16,6 +19,8 @@
 	if (col) {
 		topbarState.setPath("Cadernos", col.title, p.data.post.title)
 	}
+
+	editor.setBlocks(p.data.blocks.map((b: dto.Block) => transform(b)))
 </script>
 
 <svelte:head>

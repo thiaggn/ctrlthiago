@@ -6,6 +6,8 @@
 	import IconQuote from "$lib/icons/IconQuote.svelte";
 	import IconBoxAlignRight from "$lib/icons/IconBoxAlignRight.svelte";
 	import IconLink from "$lib/icons/IconLink.svelte";
+	import IconLock from "$lib/icons/IconLock.svelte";
+	import {editor} from "$lib/editor/store.svelte.js";
 </script>
 
 <div class='toolbar'>
@@ -31,6 +33,10 @@
 
 	<ButtonOcicat light>
 		<IconBoxAlignRight/>
+	</ButtonOcicat>
+
+	<ButtonOcicat light vibrant={editor.onSafeMode} onClick={() => editor.toggleSafeMode()}>
+		<IconLock/>
 	</ButtonOcicat>
 </div>
 

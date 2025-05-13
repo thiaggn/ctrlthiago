@@ -17,7 +17,5 @@ export namespace dto {
         words: dto.Word[]
     }
 
-    export type Word = Omit<model.Word, 'path' | 'id' | 'styles' | 'marked'> & {
-        styles?: model.WordStyle[]
-    }
+    export type Word = Omit<model.Word, 'path' | 'id' | 'marked'>
 }

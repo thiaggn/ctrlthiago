@@ -2,11 +2,14 @@
 	import {model} from "$lib/model";
 	import Title from "$lib/editor/entities/Title.svelte";
 	import Paragraph from "$lib/editor/entities/Paragraph.svelte";
-	import {textStore} from "$lib/editor/store.svelte";
+	import {editor} from "$lib/editor/store.svelte";
+	import {listeners} from "$lib/editor/listeners";
+
+	const textStore: model.Block[] = []
 </script>
 
-<div class='text-editor' contenteditable="plaintext-only">
-	{#each textStore.blocks as block (block.id)}
+<div class='text-editor' contenteditable="plaintext-only" use:listeners>
+	{#each editor.getBlocks() as block (block.id)}
 		{#if block.type === model.EntityType.Title}
 			<Title title={block}/>
 		{:else if block.type === model.EntityType.Paragraph}

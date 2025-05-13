@@ -40,17 +40,20 @@ export namespace model {
 
     export type CollectionHeader = Omit<Collection, 'posts'>
 
+    export const TerminalEntity = 1 << 1
+    export const TextEntityBit = 1 << 2 | TerminalEntity
+
     export enum EntityType {
-        Word = 'w',
-        Paragraph = 'p',
-        Title = 't',
-        Page = 'pg',
-        Table = 't',
-        Grid = 'g',
-        Area = 'a',
-        Column = 'c',
-        Row = 'r',
-        Code = 'd'
+        Word      = 1 << 3 | TerminalEntity,
+        Paragraph = 1 << 4 | TextEntityBit,
+        Title     = 1 << 5 | TextEntityBit,
+        Page      = 1 << 6,
+        Table     = 1 << 7,
+        Grid      = 1 << 8,
+        Area      = 1 << 9,
+        Column    = 1 << 10,
+        Row       = 1 << 11,
+        Code      = 1 << 12
     }
 
     export type Page = {
@@ -64,38 +67,33 @@ export namespace model {
 
     export type Entity = Paragraph | Title | Word | Page
 
-    export type ComposedEntity = Exclude<Entity, Word>
-
     export type TextEntity = Paragraph | Title
 
-    export function isTextEntity(ent: Entity): ent is TextEntity {
-        switch (ent.type) {
-            case EntityType.Paragraph:
-            case EntityType.Title:
-                return true
-            default:
-                return false
-        }
+    export function isParagraph(ent: model.Entity): ent is Paragraph {
+        return ent.type == EntityType.Paragraph
     }
 
-    export function isComposed(ent: Entity): ent is ComposedEntity {
-        switch (ent.type) {
-            case EntityType.Word:
-                return false
-            default:
-                return true
-        }
+    export function isTextBased(ent: model.Entity): ent is TextEntity {
+        return (ent.type & TextEntityBit) != 0
     }
 
-    export function isWord(ent: Entity | undefined | null): ent is Word {
-        if (ent === undefined || ent === null) return false
-        return ent.type == EntityType.Word
-    }
+    export const PersistantWordBit = 1 << 15
 
     export enum WordStyle {
-        Bold = 'b',
-        Italic = 'i',
-        Code = 'c'
+        None   = 0,
+        Bold   = 1 << 0,
+        Italic = 1 << 1,
+        Code   = 1 << 9 | PersistantWordBit,
+        Link   = 1 << 10 | PersistantWordBit,
+    }
+
+    export function removeStyle(curr: number, remove: WordStyle): number {
+        return curr & ~remove
+    }
+
+    export function removePaddingStyle(value: number): number {
+        const mask = ~(0xFF << 8); // 0xFF = 0b11111111
+        return value & mask;
     }
 
     export type Paragraph = {
@@ -117,7 +115,7 @@ export namespace model {
         id: number
         type: EntityType.Word
         text: string
-        styles: WordStyle[]
+        styles: number
         marked: boolean
         path: number[]
     }
